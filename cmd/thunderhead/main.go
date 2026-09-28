@@ -10,18 +10,18 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/bhavv04/thunderhead/internal/allowlist"
-	"github.com/bhavv04/thunderhead/internal/analyzer"
-	"github.com/bhavv04/thunderhead/internal/blocklist"
-	"github.com/bhavv04/thunderhead/internal/config"
-	"github.com/bhavv04/thunderhead/internal/logger"
-	"github.com/bhavv04/thunderhead/internal/metrics"
-	"github.com/bhavv04/thunderhead/internal/proxy"
-	"github.com/bhavv04/thunderhead/internal/store"
+	"github.com/thunderheadhq/thunderhead/internal/allowlist"
+	"github.com/thunderheadhq/thunderhead/internal/analyzer"
+	"github.com/thunderheadhq/thunderhead/internal/blocklist"
+	"github.com/thunderheadhq/thunderhead/internal/config"
+	"github.com/thunderheadhq/thunderhead/internal/logger"
+	"github.com/thunderheadhq/thunderhead/internal/metrics"
+	"github.com/thunderheadhq/thunderhead/internal/proxy"
+	"github.com/thunderheadhq/thunderhead/internal/store"
 )
 
 func main() {
-	cfgPath   := flag.String("config", "", "path to config file (optional)")
+	cfgPath := flag.String("config", "", "path to config file (optional)")
 	statePath := flag.String("state", "state.json", "path to state file")
 	flag.Parse()
 

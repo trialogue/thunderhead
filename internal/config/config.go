@@ -5,14 +5,14 @@ import (
 	"os"
 	"time"
 
-	"github.com/bhavv04/thunderhead/internal/allowlist"
-	"github.com/bhavv04/thunderhead/internal/blocklist"
+	"github.com/thunderheadhq/thunderhead/internal/allowlist"
+	"github.com/thunderheadhq/thunderhead/internal/blocklist"
 )
 
 type Action string
 
 const (
-	ActionLog   Action = "log"
+	ActionLog    Action = "log"
 	ActionTarpit Action = "tarpit"
 	ActionBlock  Action = "block"
 )
@@ -38,7 +38,7 @@ type Config struct {
 	TLSCert         string           `json:"tls_cert"`
 	TLSKey          string           `json:"tls_key"`
 	APIKey          string           `json:"api_key"`
-	DisallowedPaths []string         `json:"disallowed_paths"` 
+	DisallowedPaths []string         `json:"disallowed_paths"`
 }
 
 func Default() *Config {
@@ -87,4 +87,3 @@ func Load(path string) (*Config, error) {
 	}
 	return cfg, nil
 }
-

@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/Buttons";
 
-const GITHUB_URL = "https://github.com/bhavv04/thunderhead";
+const GITHUB_URL = "https://github.com/thunderheadhq/thunderhead";
 
 export default function DocsPage() {
   return (

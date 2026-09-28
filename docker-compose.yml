@@ -2,7 +2,7 @@ services:
   thunderhead:
     build: .
     # Or, once you publish to a registry:
-    # image: bhavv04/thunderhead:v0.2.0
+    # image: ghcr.io/thunderheadhq/thunderhead:v0.2.0
     container_name: thunderhead
     restart: unless-stopped
     ports:

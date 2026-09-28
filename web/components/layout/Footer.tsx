@@ -2,9 +2,9 @@
 
 export default function Footer() {
   const projectLinks = [
-    { label: "Github",  href: "https://github.com/bhavv04/thunderhead" },
-    { label: "License", href: "https://github.com/bhavv04/thunderhead/blob/main/LICENSE" },
-    { label: "Issues",  href: "https://github.com/bhavv04/thunderhead/issues" },
+    { label: "Github",  href: "https://github.com/thunderheadhq/thunderhead" },
+    { label: "License", href: "https://github.com/thunderheadhq/thunderhead/blob/main/LICENSE" },
+    { label: "Issues",  href: "https://github.com/thunderheadhq/thunderhead/issues" },
   ];
 
   const docLinks = [

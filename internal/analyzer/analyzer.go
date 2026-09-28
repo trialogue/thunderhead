@@ -6,7 +6,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/bhavv04/thunderhead/internal/store"
+	"github.com/thunderheadhq/thunderhead/internal/store"
 )
 
 // Signal weights - all add up to produce a score 0–100

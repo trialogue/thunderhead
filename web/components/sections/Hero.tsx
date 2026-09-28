@@ -7,7 +7,7 @@
     import { Button } from "@/components/ui/Buttons";
     import DarkVeil  from "@/components/ui/Background";
 
-    const GITHUB_URL = "https://github.com/bhavv04/thunderhead";
+    const GITHUB_URL = "https://github.com/thunderheadhq/thunderhead";
     const DOCS_URL = "/docs";
 
     export default function Hero() {

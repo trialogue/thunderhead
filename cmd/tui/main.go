@@ -15,23 +15,23 @@ import (
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
 
-	"github.com/bhavv04/thunderhead/internal/allowlist"
-	"github.com/bhavv04/thunderhead/internal/analyzer"
-	"github.com/bhavv04/thunderhead/internal/blocklist"
-	"github.com/bhavv04/thunderhead/internal/config"
-	"github.com/bhavv04/thunderhead/internal/logger"
-	"github.com/bhavv04/thunderhead/internal/metrics"
-	"github.com/bhavv04/thunderhead/internal/proxy"
-	"github.com/bhavv04/thunderhead/internal/store"
+	"github.com/thunderheadhq/thunderhead/internal/allowlist"
+	"github.com/thunderheadhq/thunderhead/internal/analyzer"
+	"github.com/thunderheadhq/thunderhead/internal/blocklist"
+	"github.com/thunderheadhq/thunderhead/internal/config"
+	"github.com/thunderheadhq/thunderhead/internal/logger"
+	"github.com/thunderheadhq/thunderhead/internal/metrics"
+	"github.com/thunderheadhq/thunderhead/internal/proxy"
+	"github.com/thunderheadhq/thunderhead/internal/store"
 )
 
 // Styles
 
 var (
-	styleDim    = lipgloss.NewStyle().Foreground(lipgloss.Color("240"))
-	styleMuted  = lipgloss.NewStyle().Foreground(lipgloss.Color("244"))
-	styleWhite  = lipgloss.NewStyle().Foreground(lipgloss.Color("252"))
-	styleBold   = lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color("255"))
+	styleDim   = lipgloss.NewStyle().Foreground(lipgloss.Color("240"))
+	styleMuted = lipgloss.NewStyle().Foreground(lipgloss.Color("244"))
+	styleWhite = lipgloss.NewStyle().Foreground(lipgloss.Color("252"))
+	styleBold  = lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color("255"))
 
 	styleAllow  = lipgloss.NewStyle().Foreground(lipgloss.Color("34"))
 	styleTarpit = lipgloss.NewStyle().Foreground(lipgloss.Color("214"))
@@ -105,11 +105,11 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 	case tickMsg:
 		m.clients = m.az.Status()
-		m.total   = m.mx.Total.Load()
+		m.total = m.mx.Total.Load()
 		m.allowed = m.mx.Allowed.Load()
-		m.tarpit  = m.mx.Tarpit.Load()
+		m.tarpit = m.mx.Tarpit.Load()
 		m.blocked = m.mx.Blocked.Load()
-		m.uptime  = time.Since(m.startAt).Truncate(time.Second)
+		m.uptime = time.Since(m.startAt).Truncate(time.Second)
 		return m, tick()
 
 	case logMsg:
@@ -134,18 +134,30 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case "j", "down":
 			if m.mode == "clients" {
 				max := len(m.clients) - visibleRows
-				if max < 0 { max = 0 }
-				if m.scroll < max { m.scroll++ }
+				if max < 0 {
+					max = 0
+				}
+				if m.scroll < max {
+					m.scroll++
+				}
 			} else {
 				max := len(m.logs) - visibleRows
-				if max < 0 { max = 0 }
-				if m.logScroll < max { m.logScroll++ }
+				if max < 0 {
+					max = 0
+				}
+				if m.logScroll < max {
+					m.logScroll++
+				}
 			}
 		case "k", "up":
 			if m.mode == "clients" {
-				if m.scroll > 0 { m.scroll-- }
+				if m.scroll > 0 {
+					m.scroll--
+				}
 			} else {
-				if m.logScroll > 0 { m.logScroll-- }
+				if m.logScroll > 0 {
+					m.logScroll--
+				}
 			}
 		}
 	}
@@ -160,7 +172,7 @@ func (m model) View() string {
 	var b strings.Builder
 	div := styleDivider.Render(strings.Repeat("─", 80))
 
-	// Title 
+	// Title
 	title := styleBold.Render("⚡ thunderhead")
 	version := styleDim.Render("v0.1.1")
 	meta := styleDim.Render(fmt.Sprintf("  %s → %s   up %s", m.cfg.ListenAddr, m.cfg.UpstreamURL, m.uptime))
@@ -171,17 +183,20 @@ func (m model) View() string {
 	b.WriteString(meta)
 	b.WriteString("\n")
 
-	// Stats 
+	// Stats
 	b.WriteString("\n")
 
-	stats := []struct{ label, val string; style lipgloss.Style }{
-    {"total",     fmt.Sprintf("%d", m.total),   styleWhite},
-    {"allowed",   fmt.Sprintf("%d", m.allowed), styleAllow},
-    {"tarpitted", fmt.Sprintf("%d", m.tarpit),  styleTarpit},
-    {"blocked",   fmt.Sprintf("%d", m.blocked), styleBlock},
-    {"clients",   fmt.Sprintf("%d", len(m.clients)), styleWhite},
-    {"tarpit@",   fmt.Sprintf("%.0f", m.cfg.Thresholds.Tarpit), styleTarpit},
-    {"block@",    fmt.Sprintf("%.0f", m.cfg.Thresholds.Block),  styleBlock},
+	stats := []struct {
+		label, val string
+		style      lipgloss.Style
+	}{
+		{"total", fmt.Sprintf("%d", m.total), styleWhite},
+		{"allowed", fmt.Sprintf("%d", m.allowed), styleAllow},
+		{"tarpitted", fmt.Sprintf("%d", m.tarpit), styleTarpit},
+		{"blocked", fmt.Sprintf("%d", m.blocked), styleBlock},
+		{"clients", fmt.Sprintf("%d", len(m.clients)), styleWhite},
+		{"tarpit@", fmt.Sprintf("%.0f", m.cfg.Thresholds.Tarpit), styleTarpit},
+		{"block@", fmt.Sprintf("%.0f", m.cfg.Thresholds.Block), styleBlock},
 	}
 
 	var statParts []string
@@ -190,29 +205,48 @@ func (m model) View() string {
 			styleDim.Render(s.label+" ")+s.style.Render(s.val),
 		)
 	}
-	b.WriteString("  ");b.WriteString(strings.Join(statParts, styleDivider.Render("   ·   ")))
+	b.WriteString("  ")
+	b.WriteString(strings.Join(statParts, styleDivider.Render("   ·   ")))
 	b.WriteString("\n\n")
-	b.WriteString("  ");b.WriteString(div);b.WriteString("\n\n")
+	b.WriteString("  ")
+	b.WriteString(div)
+	b.WriteString("\n\n")
 
-	// Tab bar 
+	// Tab bar
 	clientsTab := styleDim.Render("clients")
-	logTab     := styleDim.Render("log")
+	logTab := styleDim.Render("log")
 	if m.mode == "clients" {
 		clientsTab = styleWhite.Render("clients")
 	} else {
 		logTab = styleWhite.Render("log")
 	}
-	b.WriteString("  ");b.WriteString(clientsTab);b.WriteString(styleDivider.Render("  /  "));b.WriteString(logTab);b.WriteString("\n\n")
+	b.WriteString("  ")
+	b.WriteString(clientsTab)
+	b.WriteString(styleDivider.Render("  /  "))
+	b.WriteString(logTab)
+	b.WriteString("\n\n")
 
-	// Table 
+	// Table
 	if m.mode == "clients" {
 		m.renderClients(&b)
 	} else {
 		m.renderLog(&b)
 	}
 
-	// Footer 
-	b.WriteString("  ");b.WriteString(styleDim.Render("tab"));b.WriteString(" ");b.WriteString(styleWhite.Render("switch view"));b.WriteString("   ");b.WriteString(styleDim.Render("↑↓"));b.WriteString(" ");b.WriteString(styleWhite.Render("scroll"));b.WriteString("   ");b.WriteString(styleDim.Render("q"));b.WriteString(" ");b.WriteString(styleWhite.Render("quit"));b.WriteString("\n")
+	// Footer
+	b.WriteString("  ")
+	b.WriteString(styleDim.Render("tab"))
+	b.WriteString(" ")
+	b.WriteString(styleWhite.Render("switch view"))
+	b.WriteString("   ")
+	b.WriteString(styleDim.Render("↑↓"))
+	b.WriteString(" ")
+	b.WriteString(styleWhite.Render("scroll"))
+	b.WriteString("   ")
+	b.WriteString(styleDim.Render("q"))
+	b.WriteString(" ")
+	b.WriteString(styleWhite.Render("quit"))
+	b.WriteString("\n")
 
 	return b.String()
 }
@@ -275,7 +309,9 @@ func (m *model) renderClients(b *strings.Builder) {
 
 		barWidth := 8
 		filled := int((r.status.Score / 100.0) * float64(barWidth))
-		if filled > barWidth { filled = barWidth }
+		if filled > barWidth {
+			filled = barWidth
+		}
 		bar := scoreStyle(r.status.Score).Render(strings.Repeat("█", filled)) +
 			styleDim.Render(strings.Repeat("░", barWidth-filled))
 		barPad := strings.Repeat(" ", colW[2]-barWidth)
@@ -302,27 +338,49 @@ func (m *model) renderClients(b *strings.Builder) {
 func (m *model) renderLog(b *strings.Builder) {
 	colW := []int{10, 22, 8, 32, 8, 8}
 
-	b.WriteString("  ");b.WriteString(styleColHeader.Render(pad("time", colW[0])));b.WriteString(styleColHeader.Render(pad("ip", colW[1])));b.WriteString(styleColHeader.Render(pad("method", colW[2])));b.WriteString(styleColHeader.Render(pad("path", colW[3])));b.WriteString(styleColHeader.Render(pad("score", colW[4])));b.WriteString(styleColHeader.Render(pad("action", colW[5])));b.WriteString("\n\n")
+	b.WriteString("  ")
+	b.WriteString(styleColHeader.Render(pad("time", colW[0])))
+	b.WriteString(styleColHeader.Render(pad("ip", colW[1])))
+	b.WriteString(styleColHeader.Render(pad("method", colW[2])))
+	b.WriteString(styleColHeader.Render(pad("path", colW[3])))
+	b.WriteString(styleColHeader.Render(pad("score", colW[4])))
+	b.WriteString(styleColHeader.Render(pad("action", colW[5])))
+	b.WriteString("\n\n")
 
 	if len(m.logs) == 0 {
-		b.WriteString("  ");b.WriteString(styleDim.Render("waiting for requests..."));b.WriteString("\n")
+		b.WriteString("  ")
+		b.WriteString(styleDim.Render("waiting for requests..."))
+		b.WriteString("\n")
 		return
 	}
 
 	// newest at bottom when logScroll == 0
 	end := len(m.logs) - m.logScroll
 	start := end - visibleRows
-	if start < 0 { start = 0 }
-	if end < 0 { end = 0 }
+	if start < 0 {
+		start = 0
+	}
+	if end < 0 {
+		end = 0
+	}
 
 	for _, e := range m.logs[start:end] {
 		_, as := actionInfo(e.Score, m.cfg)
-		b.WriteString("  ");b.WriteString(styleDim.Render(pad(e.Time.Format("15:04:05"), colW[0])));b.WriteString(styleMuted.Render(pad(e.IP, colW[1])));b.WriteString(styleDim.Render(pad(e.Method, colW[2])));b.WriteString(styleWhite.Render(pad(e.Path, colW[3])));b.WriteString(scoreStyle(e.Score).Render(pad(fmt.Sprintf("%.1f", e.Score), colW[4])));b.WriteString(as.Render(pad(e.Action, colW[5])));b.WriteString("\n")
+		b.WriteString("  ")
+		b.WriteString(styleDim.Render(pad(e.Time.Format("15:04:05"), colW[0])))
+		b.WriteString(styleMuted.Render(pad(e.IP, colW[1])))
+		b.WriteString(styleDim.Render(pad(e.Method, colW[2])))
+		b.WriteString(styleWhite.Render(pad(e.Path, colW[3])))
+		b.WriteString(scoreStyle(e.Score).Render(pad(fmt.Sprintf("%.1f", e.Score), colW[4])))
+		b.WriteString(as.Render(pad(e.Action, colW[5])))
+		b.WriteString("\n")
 	}
 
 	if len(m.logs) > visibleRows {
-		b.WriteString("\n  ");b.WriteString(styleDim.Render(fmt.Sprintf("%d-%d of %d",
-	start+1, end, len(m.logs))));b.WriteString("\n")
+		b.WriteString("\n  ")
+		b.WriteString(styleDim.Render(fmt.Sprintf("%d-%d of %d",
+			start+1, end, len(m.logs))))
+		b.WriteString("\n")
 	}
 }
 
@@ -351,19 +409,23 @@ func scoreStyle(score float64) lipgloss.Style {
 }
 
 func pad(s string, w int) string {
-	if len(s) >= w { return s[:w] }
+	if len(s) >= w {
+		return s[:w]
+	}
 	return s + strings.Repeat(" ", w-len(s))
 }
 
 func min(a, b int) int {
-	if a < b { return a }
+	if a < b {
+		return a
+	}
 	return b
 }
 
 // Main
 
 func main() {
-	cfgPath   := flag.String("config", "", "path to config file (optional)")
+	cfgPath := flag.String("config", "", "path to config file (optional)")
 	statePath := flag.String("state", "state.json", "path to state file")
 	dryRun := flag.Bool("dry-run", false, "score requests but never tarpit or block")
 	flag.Parse()

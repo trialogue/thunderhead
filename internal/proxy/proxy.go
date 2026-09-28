@@ -12,12 +12,12 @@ import (
 	"text/template"
 	"time"
 
-	"github.com/bhavv04/thunderhead/internal/allowlist"
-	"github.com/bhavv04/thunderhead/internal/analyzer"
-	"github.com/bhavv04/thunderhead/internal/blocklist"
-	"github.com/bhavv04/thunderhead/internal/config"
-	"github.com/bhavv04/thunderhead/internal/logger"
-	"github.com/bhavv04/thunderhead/internal/metrics"
+	"github.com/thunderheadhq/thunderhead/internal/allowlist"
+	"github.com/thunderheadhq/thunderhead/internal/analyzer"
+	"github.com/thunderheadhq/thunderhead/internal/blocklist"
+	"github.com/thunderheadhq/thunderhead/internal/config"
+	"github.com/thunderheadhq/thunderhead/internal/logger"
+	"github.com/thunderheadhq/thunderhead/internal/metrics"
 )
 
 type Proxy struct {
@@ -29,7 +29,7 @@ type Proxy struct {
 	blocklist *blocklist.Blocklist
 	metrics   *metrics.Counters
 	dryRun    bool
-	startTime time.Time 
+	startTime time.Time
 }
 
 //go:embed dashboard.html
@@ -65,12 +65,12 @@ func New(cfg *config.Config, az *analyzer.Analyzer, log *logger.Logger, al *allo
 		upstream:  rp,
 		allowlist: al,
 		blocklist: bl,
-		startTime: time.Now(),  
+		startTime: time.Now(),
 	}, nil
 }
 
 func (p *Proxy) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	
+
 	// API routes
 	if strings.HasPrefix(r.URL.Path, "/api/v1/") {
 		p.apiMux().ServeHTTP(w, r)
@@ -123,9 +123,12 @@ func (p *Proxy) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if p.metrics != nil {
 		p.metrics.Total.Add(1)
 		switch action {
-		case "block":  p.metrics.Blocked.Add(1)
-		case "tarpit": p.metrics.Tarpit.Add(1)
-		default:       p.metrics.Allowed.Add(1)
+		case "block":
+			p.metrics.Blocked.Add(1)
+		case "tarpit":
+			p.metrics.Tarpit.Add(1)
+		default:
+			p.metrics.Allowed.Add(1)
 		}
 	}
 
@@ -227,9 +230,11 @@ func extractIP(r *http.Request) string {
 }
 
 func NewWithMetrics(cfg *config.Config, az *analyzer.Analyzer, log *logger.Logger, al *allowlist.Allowlist, bl *blocklist.Blocklist, mx *metrics.Counters, dryRun bool) (*Proxy, error) {
-    p, err := New(cfg, az, log, al, bl)
-    if err != nil { return nil, err }
-    p.metrics = mx
-    p.dryRun = dryRun
-    return p, nil
+	p, err := New(cfg, az, log, al, bl)
+	if err != nil {
+		return nil, err
+	}
+	p.metrics = mx
+	p.dryRun = dryRun
+	return p, nil
 }

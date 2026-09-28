@@ -3,7 +3,7 @@ const STEPS = [
     n: "1",
     title: "Install",
     body: "Install the binary directly with Go. No external dependencies required.",
-    code: "go install github.com/bhavv04/thunderhead/cmd/thunderhead@latest",
+    code: "go install github.com/thunderheadhq/thunderhead/cmd/thunderhead@latest",
   },
   {
     n: "2",

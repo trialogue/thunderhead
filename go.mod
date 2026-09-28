@@ -1,4 +1,4 @@
-module github.com/bhavv04/thunderhead
+module github.com/thunderheadhq/thunderhead
 
 go 1.25.1
 
