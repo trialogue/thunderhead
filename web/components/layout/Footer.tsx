@@ -2,9 +2,9 @@
 
 export default function Footer() {
   const projectLinks = [
-    { label: "Github",  href: "https://github.com/thunderheadhq/thunderhead" },
-    { label: "License", href: "https://github.com/thunderheadhq/thunderhead/blob/main/LICENSE" },
-    { label: "Issues",  href: "https://github.com/thunderheadhq/thunderhead/issues" },
+    { label: "Github",  href: "https://github.com/Trialogue/thunderhead" },
+    { label: "License", href: "https://github.com/Trialogue/thunderhead/blob/main/LICENSE" },
+    { label: "Issues",  href: "https://github.com/Trialogue/thunderhead/issues" },
   ];
 
   const docLinks = [
@@ -23,7 +23,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="max-w-sm">
             <div className="mb-4 text-white flex flex-row gap-2 items-end">
-              <img src="/reaper.png" alt="Thunderhead" className="h-8 w-8" />
+              <img src="/favicon-192.png" alt="Thunderhead" className="h-8 w-8" />
               Thunderhead
             </div>
             <p className="m-0 max-w-lg text-sm text-zinc-500">
@@ -60,7 +60,7 @@ export default function Footer() {
         {/* Bottom row */}
         <div className="flex flex-wrap items-center justify-between gap-4">
           <span className="text-xs text-zinc-600">
-            © 2026 Bhavdeep Arora · MIT License
+            © 2026 Trialogue · MIT License
           </span>
         </div>
 

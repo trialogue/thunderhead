@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/thunderheadhq/thunderhead/internal/store"
+	"github.com/trialogue/thunderhead/internal/store"
 )
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
