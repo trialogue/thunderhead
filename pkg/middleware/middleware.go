@@ -4,9 +4,9 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/thunderheadhq/thunderhead/internal/allowlist"
-	"github.com/thunderheadhq/thunderhead/internal/analyzer"
-	"github.com/thunderheadhq/thunderhead/internal/blocklist"
+	"github.com/trialogue/thunderhead/internal/allowlist"
+	"github.com/trialogue/thunderhead/internal/analyzer"
+	"github.com/trialogue/thunderhead/internal/blocklist"
 )
 
 // Config holds middleware configuration.

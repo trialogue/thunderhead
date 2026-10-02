@@ -7,7 +7,7 @@
     import { Button } from "@/components/ui/Buttons";
     import DarkVeil  from "@/components/ui/Background";
 
-    const GITHUB_URL = "https://github.com/thunderheadhq/thunderhead";
+    const GITHUB_URL = "https://github.com/trialogue/thunderhead";
     const DOCS_URL = "/docs";
 
     export default function Hero() {
@@ -46,8 +46,8 @@
                 className="max-w-2xl text-2xl font-medium tracking-tight text-zinc-200 md:text-3xl md:text-balance"
                 style={fade(80)}
             >
-               Stop bots without annoying your users. <br />
-               Bot detection without CAPTCHAs or Cloudflare. 
+               Forecast the intent of every HTTP request. <br />
+               Score silently. Respond proportionally.
             </h1>
 
           <div style={fade(240)} className="flex gap-2">

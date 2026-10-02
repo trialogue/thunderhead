@@ -50,9 +50,9 @@ export default function Navbar() {
           className={`flex items-center justify-between px-4 py-2 w-full rounded-xl shadow-lg shadow-black/20 ${bar}`}
         >
           <Logo onClick={scrollTop} />
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1">
             <Button variant="ghost" size="sm" asChild>
-                <a href="/docs">Documentation</a>
+                <a href="/docs"><ScrollText /></a>
             </Button>
             <Button variant="default" size="sm" asChild>
               <a href="#quickstart">Install</a>

@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 
 const LINES = [
-  { text: "$ go install github.com/thunderheadhq/thunderhead/cmd/thunderhead@latest", color: "text-white/70", delay: 0 },
-  { text: "go: downloading github.com/thunderheadhq/thunderhead v0.1.1", color: "text-white/25", delay: 800 },
+  { text: "$ go install github.com/trialogue/thunderhead/cmd/thunderhead@latest", color: "text-white/70", delay: 0 },
+  { text: "go: downloading github.com/trialogue/thunderhead v0.1.1", color: "text-white/25", delay: 800 },
   { text: "go: downloading github.com/charmbracelet/bubbletea v1.3.10", color: "text-white/25", delay: 1200 },
   { text: "go: downloading github.com/charmbracelet/lipgloss v1.1.0", color: "text-white/25", delay: 1600 },
   { text: "", color: "", delay: 2000 },

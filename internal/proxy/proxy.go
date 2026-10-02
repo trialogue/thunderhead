@@ -12,12 +12,12 @@ import (
 	"text/template"
 	"time"
 
-	"github.com/thunderheadhq/thunderhead/internal/allowlist"
-	"github.com/thunderheadhq/thunderhead/internal/analyzer"
-	"github.com/thunderheadhq/thunderhead/internal/blocklist"
-	"github.com/thunderheadhq/thunderhead/internal/config"
-	"github.com/thunderheadhq/thunderhead/internal/logger"
-	"github.com/thunderheadhq/thunderhead/internal/metrics"
+	"github.com/trialogue/thunderhead/internal/allowlist"
+	"github.com/trialogue/thunderhead/internal/analyzer"
+	"github.com/trialogue/thunderhead/internal/blocklist"
+	"github.com/trialogue/thunderhead/internal/config"
+	"github.com/trialogue/thunderhead/internal/logger"
+	"github.com/trialogue/thunderhead/internal/metrics"
 )
 
 type Proxy struct {

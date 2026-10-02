@@ -15,14 +15,14 @@ import (
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
 
-	"github.com/thunderheadhq/thunderhead/internal/allowlist"
-	"github.com/thunderheadhq/thunderhead/internal/analyzer"
-	"github.com/thunderheadhq/thunderhead/internal/blocklist"
-	"github.com/thunderheadhq/thunderhead/internal/config"
-	"github.com/thunderheadhq/thunderhead/internal/logger"
-	"github.com/thunderheadhq/thunderhead/internal/metrics"
-	"github.com/thunderheadhq/thunderhead/internal/proxy"
-	"github.com/thunderheadhq/thunderhead/internal/store"
+	"github.com/trialogue/thunderhead/internal/allowlist"
+	"github.com/trialogue/thunderhead/internal/analyzer"
+	"github.com/trialogue/thunderhead/internal/blocklist"
+	"github.com/trialogue/thunderhead/internal/config"
+	"github.com/trialogue/thunderhead/internal/logger"
+	"github.com/trialogue/thunderhead/internal/metrics"
+	"github.com/trialogue/thunderhead/internal/proxy"
+	"github.com/trialogue/thunderhead/internal/store"
 )
 
 // Styles
